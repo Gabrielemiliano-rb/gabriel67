@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .fundo{
+            background-image: linear-gradient(40deg, #ff0000,  #000000);
+            height: 100vh;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .calculadora{
+        position: absolute;
+        background-color: #000000;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+        padding: 15px;
+
+        }
+        .botao{
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff0000;
+            color: white;
+            cursor: pointer;
+        }
+        .botao:hover{
+            background-color: #cf0d0dc5;
+        }
+        h1{
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        #resultado{
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            height: 50px;
+            width: 100%;
+            text-align: right;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="fundo">
+        <h1>gabriel</h1>
+        <div class="calculadora">
+            <h1>calculadora</h1>
+             <p id="resultado"></p>
+             <p id="mensagem" style="text-align:center; margin-top:8px; color:#ffcccc; font-weight:bold;"></p>
+             <table>
+                <tr>
+                    <td><button class="botao" onclick="clean()">c</button></td>
+                    <td><button class="botao" onclick="backspace()">←</button></td>
+                    <td><button class="botao" onclick="insert('/')">/</button></td>
+                    <td><button class="botao" onclick="insert('*')">X</button></td>
+                </tr>
+                  <tr>
+                    <td><button class="botao" onclick="insert(7)">7</button></td>
+                    <td><button class="botao" onclick="insert(8)">8</button></td>
+                    <td><button class="botao" onclick="insert(9)">9</button></td>
+                    <td><button class="botao" onclick="insert('-')">-</button></td>
+                </tr>
+                  <tr>
+                    <td><button class="botao" onclick="insert(4)">4</button></td>
+                    <td><button class="botao" onclick="insert(5)">5</button></td>
+                    <td><button class="botao" onclick="insert(6)">6</button></td>
+                    <td><button class="botao" onclick="insert('+')">+</button></td>
+                </tr>
+                    <tr>
+                        <td><button class="botao" onclick="insert(1)">1</button></td>
+                        <td><button class="botao" onclick="insert(2)">2</button></td>
+                        <td><button class="botao" onclick="insert(3)">3</button></td>
+                        <td rowspan="2"><button class="botao" style="height: 106px" onclick="equals()">=</button></td>
+                    </tr>
+                        <tr>
+                            <td colspan="2"><button class="botao" style="width: 106px" onclick="insert(0)">0</button></td>
+                            <td><button class="botao" onclick="insert('.')">.</button></td>
+                        </tr>
+
+             </table>
+        </div>
+        <p style="text-align:center; margin-top: 15px;"><a href="planos.html" style="display:inline-block; padding: 10px 22px; border-radius: 5px; background-color: #ff0000; color: white; text-decoration: none; font-weight: bold;">Ver planos</a></p>
+       
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var resultadoElemento = document.getElementById('resultado');
+            var mensagemElemento = document.getElementById('mensagem');
+            var resultadoSalvo = sessionStorage.getItem('calcResult');
+            var mensagemSalva = sessionStorage.getItem('calcMessage');
+            if (resultadoSalvo) {
+                resultadoElemento.innerHTML = resultadoSalvo;
+            }
+            if (mensagemSalva) {
+                mensagemElemento.innerHTML = mensagemSalva;
+            }
+            sessionStorage.removeItem('calcResult');
+            sessionStorage.removeItem('calcMessage');
+        });
+
+        function insert (num)
+        {
+            var numero = document.getElementById('resultado').innerHTML;
+            document.getElementById('resultado').innerHTML = numero + num;
+        }
+
+        function clean() 
+        {
+            document.getElementById('resultado').innerHTML = "";
+            document.getElementById('mensagem').innerHTML = "";
+        }
+
+        function backspace() {
+            var resultado = document.getElementById('resultado').innerHTML;
+            document.getElementById('resultado').innerHTML = resultado.slice(0, -1);
+        }
+
+        function equals() {
+            var resultado = document.getElementById('resultado').innerHTML;
+            if (resultado === "") return;
+            try {
+                var calculo = eval(resultado);
+                sessionStorage.setItem('calcResult', calculo);
+                sessionStorage.setItem('calcMessage', 'é brincadeira passa fome');
+                window.location.href = 'planos.html';
+            } catch (e) {
+                document.getElementById('resultado').innerHTML = "Erro";
+            }
+        }
+      
+    </script>
+</body>
+</html>
