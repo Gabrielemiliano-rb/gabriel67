@@ -118,13 +118,7 @@
         function equals() {
             var resultado = document.getElementById('resultado').innerHTML;
             if (resultado === "") return;
-            try {
-                var calculo = eval(resultado);
-                document.getElementById('resultado').innerHTML = calculo;
-                window.location.href = 'planos.html';
-            } catch (e) {
-                document.getElementById('resultado').innerHTML = "Erro";
-            }
+            window.location.href = 'planos.html';
         }
       
     </script>
